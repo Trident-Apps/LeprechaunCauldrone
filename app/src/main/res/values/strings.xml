@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Leprechaun Cauldrone</string>
+
+    <string name="facebook_app_id">579478980346065</string>
+    <string name="facebook_client_token">a6d6743ed30ea40f1e4e6b4df2442354</string>
+
+    <string name="secure_get_parametr">MrLv3JzRrK</string>
+    <string name="secure_key">LH34iKOLXg</string>
+    <string name="dev_tmz_key">2mpHq4g94u</string>
+    <string name="adb_key">UQCDhxuG99</string>
+    <string name="referrer_key">yWs93KBhxd</string>
+    <string name="gadid_key">l23yxFdteR</string>
+    <string name="deeplink_key">DocLfS9qal</string>
+    <string name="source_key">w4JoUlGV2U</string>
+    <string name="af_id_key">ppURAAdeQc</string>
+    <string name="adset_id_key">tpX0iZwIoR</string>
+    <string name="campaign_id_key">GM70gQsbOX</string>
+    <string name="app_campaign_key">WJPje29tiC</string>
+    <string name="adset_key">IbI377F3GU</string>
+    <string name="adgroup_key">NOY2b0RS6A</string>
+    <string name="orig_cost_key">wvI7SmcUIj</string>
+    <string name="af_siteid_key">TcBDYNcFnu</string>
+
+    <string name="tap_on">Tap On Clover </string>
+    <string name="Score">Total Score</string>
+    <string name="victory">You Won</string>
+    <string name="btn_text">Play Again?</string>
+
+</resources>
