@@ -47,10 +47,10 @@ class GameFragment : Fragment() {
 
     private fun play() {
         lifecycleScope.launch {
-            repeat(200) {
+            repeat(20) {
                 delay(800)
                 shuffle()
-                if (points >= 10) {
+                if (points >= 5) {
                     points = 0
                     findNavController().navigate(R.id.victoryFragment)
                 }
@@ -62,7 +62,7 @@ class GameFragment : Fragment() {
         if (view.tag == R.drawable.ic5) {
             view.isClickable = false
             points++
-            binding.points.text = "${points}/10"
+            binding.points.text = "${points}/5"
         }
     }
 

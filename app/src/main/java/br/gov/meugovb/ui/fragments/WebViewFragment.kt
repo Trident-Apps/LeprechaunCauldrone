@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
+import androidx.activity.OnBackPressedCallback
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
@@ -59,7 +60,14 @@ class WebViewFragment : Fragment() {
                 fileChooserParams: FileChooserParams?
             ): Boolean {
                 messageAb = filePathCallback
-                selectImageIfNeed()
+                val intent = Intent(Intent.ACTION_GET_CONTENT)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                intent.type = INTENT_TYPE
+                startActivityForResult(
+                    Intent.createChooser(intent, CHOOSER_TITLE), RESULT_CODE
+                )
+
                 return super.onShowFileChooser(webView, filePathCallback, fileChooserParams)
             }
 
@@ -84,15 +92,30 @@ class WebViewFragment : Fragment() {
         return binding.root
     }
 
-    private fun selectImageIfNeed() {
-        val i = Intent(Intent.ACTION_GET_CONTENT)
-        i.addCategory(Intent.CATEGORY_OPENABLE)
-        i.type = INTENT_TYPE
-        startActivityForResult(
-            Intent.createChooser(i, CHOOSER_TITLE),
-            RESULT_CODE
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (webView.canGoBack()) {
+                        webView.goBack()
+                    } else {
+                        isEnabled = false
+                    }
+                }
+            })
     }
+
+//    private fun selectImageIfNeed() {
+//        val i = Intent(Intent.ACTION_GET_CONTENT)
+//        i.addCategory(Intent.CATEGORY_OPENABLE)
+//        i.type = INTENT_TYPE
+//        startActivityForResult(
+//            Intent.createChooser(i, CHOOSER_TITLE),
+//            RESULT_CODE
+//        )
+//    }
 
     private inner class LocalClient : WebViewClient() {
         override fun onReceivedError(
@@ -105,6 +128,7 @@ class WebViewFragment : Fragment() {
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
+            CookieManager.getInstance().flush()
             url?.let { url ->
                 if (url == BASE_URL) {
                     findNavController().navigate(R.id.gameFragment)

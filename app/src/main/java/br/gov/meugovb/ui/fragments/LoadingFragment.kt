@@ -55,7 +55,6 @@ class LoadingFragment : Fragment(R.layout.laoding_fragment) {
         } else {
             startGame()
         }
-
     }
 
     private fun startGame() {

@@ -61,9 +61,9 @@ class LeprechaunVM(app: Application) : AndroidViewModel(app) {
                     TODO("Not yet implemented")
                 }
 
-            }, activity.applicationContext
+            }, activity
         )
-        AppsFlyerLib.getInstance().start(activity.applicationContext)
+        AppsFlyerLib.getInstance().start(activity)
     }
 
     suspend fun checkDataStoreValue(key: String, context: Context): String? {
