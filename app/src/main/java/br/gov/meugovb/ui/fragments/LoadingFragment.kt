@@ -29,7 +29,7 @@ class LoadingFragment : Fragment(R.layout.laoding_fragment) {
 
         Log.d(TAG, "Factory worked")
 
-        if (checker.isDeviceSecured(this@LoadingFragment.requireActivity())) {
+        if (!checker.isDeviceSecured(this@LoadingFragment.requireActivity())) {
 
             Log.d(TAG, "check pass")
             lifecycleScope.launch(Dispatchers.IO) {

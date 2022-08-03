@@ -15,7 +15,7 @@ class uriBuilder {
             AdvertisingIdClient.getAdvertisingIdInfo(activity.applicationContext).id.toString()
 
         val url = Consts.BASE_URL.toUri().buildUpon().apply {
-            appendQueryParameter(Consts.SECURE_GET_PARAMETR, "secure_key")
+            appendQueryParameter(Consts.SECURE_GET_PARAMETR, Consts.SECURE_KEY)
             appendQueryParameter(Consts.DEV_TMZ_KEY, TimeZone.getDefault().id)
             appendQueryParameter(Consts.GADID_KEY, gadid)
             appendQueryParameter(Consts.DEEPLINK_KEY, deepLink)

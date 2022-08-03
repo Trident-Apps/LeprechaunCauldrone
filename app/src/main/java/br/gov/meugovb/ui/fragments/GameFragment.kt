@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import br.gov.meugovb.R
 import br.gov.meugovb.databinding.GameFragmentBinding
 import kotlinx.coroutines.delay
@@ -40,11 +41,19 @@ class GameFragment : Fragment() {
                 onClick(view as ImageView)
             }
         }
+        play()
 
-        while (points < 20) {
-            lifecycleScope.launch {
-                delay(1000)
+    }
+
+    private fun play() {
+        lifecycleScope.launch {
+            repeat(200) {
+                delay(800)
                 shuffle()
+                if (points >= 10) {
+                    points = 0
+                    findNavController().navigate(R.id.victoryFragment)
+                }
             }
         }
     }
@@ -53,7 +62,7 @@ class GameFragment : Fragment() {
         if (view.tag == R.drawable.ic5) {
             view.isClickable = false
             points++
-            binding.points.text = "${points}/20"
+            binding.points.text = "${points}/10"
         }
     }
 
@@ -67,19 +76,18 @@ class GameFragment : Fragment() {
         ).shuffled()
         binding.imageView.setImageResource(imList[0])
         binding.imageView.tag = imList[0]
-        binding.imageView.setImageResource(imList[1])
-        binding.imageView.tag = imList[1]
-        binding.imageView.setImageResource(imList[2])
-        binding.imageView.tag = imList[2]
-        binding.imageView.setImageResource(imList[3])
-        binding.imageView.tag = imList[3]
-        binding.imageView.setImageResource(imList[4])
-        binding.imageView.tag = imList[4]
+        binding.imageView2.setImageResource(imList[1])
+        binding.imageView2.tag = imList[1]
+        binding.imageView3.setImageResource(imList[2])
+        binding.imageView3.tag = imList[2]
+        binding.imageView4.setImageResource(imList[3])
+        binding.imageView4.tag = imList[3]
+        binding.imageView5.setImageResource(imList[4])
+        binding.imageView5.tag = imList[4]
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }
