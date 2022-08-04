@@ -6,12 +6,14 @@ import android.provider.Settings
 import java.io.File
 
 class Checkers {
+
     fun isDeviceSecured(activity: Activity): Boolean {
-        return checkRoot() && checkADB(activity) == "1"
+        return checkRoot() || checkADB(activity) == "1"
     }
 
     private fun checkADB(activity: Activity): String {
         return Settings.Global.getString(activity.contentResolver, Settings.Global.ADB_ENABLED)
+            ?: "null"
     }
 
     private fun checkRoot(): Boolean {

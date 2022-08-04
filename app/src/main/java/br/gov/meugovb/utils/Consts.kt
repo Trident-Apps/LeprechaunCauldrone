@@ -10,8 +10,6 @@ object Consts {
     const val SECURE_GET_PARAMETR = "MrLv3JzRrK"
     const val SECURE_KEY = "LH34iKOLXg"
     const val DEV_TMZ_KEY = "2mpHq4g94u"
-    const val ADB_KEY = "UQCDhxuG99"
-    const val REFERRER_KEY = "yWs93KBhxd"
     const val GADID_KEY = "l23yxFdteR"
     const val DEEPLINK_KEY = "DocLfS9qal"
     const val SOURCE_KEY = "w4JoUlGV2U"

@@ -35,5 +35,4 @@ class uriBuilder {
         }.toString()
         return url
     }
-
 }

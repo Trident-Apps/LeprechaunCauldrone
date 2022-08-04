@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.first
 
 class LeprechaunVM(app: Application) : AndroidViewModel(app) {
 
-    private val TAG = "myVM"
     private val urlBuilder = uriBuilder()
     private val onesignalTag = OneSignalTagSender()
 
@@ -27,8 +26,6 @@ class LeprechaunVM(app: Application) : AndroidViewModel(app) {
     fun getDeepLink(activity: Activity) {
         AppLinkData.fetchDeferredAppLinkData(activity.applicationContext) {
             val deeplink = it?.targetUri.toString()
-
-            Log.d(TAG, deeplink)
 
             if (deeplink == "null") {
                 getAppsFlyer(activity)
@@ -40,17 +37,15 @@ class LeprechaunVM(app: Application) : AndroidViewModel(app) {
     }
 
     private fun getAppsFlyer(activity: Activity) {
-        Log.d(TAG, "apss started")
         AppsFlyerLib.getInstance().init(
             Consts.APPS_DEV_KEY, object : AppsFlyerConversionListener {
                 override fun onConversionDataSuccess(data: MutableMap<String, Any>?) {
-                    Log.d(TAG, "apps success")
                     onesignalTag.sendTag("null", data)
                     urlLiveData.postValue(urlBuilder.createUrl("null", data, activity))
                 }
 
                 override fun onConversionDataFail(p0: String?) {
-                    Log.d(TAG, "apps fail")
+
                 }
 
                 override fun onAppOpenAttribution(p0: MutableMap<String, String>?) {

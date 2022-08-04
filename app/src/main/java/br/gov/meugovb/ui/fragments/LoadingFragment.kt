@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 class LoadingFragment : Fragment(R.layout.laoding_fragment) {
     private val checker = Checkers()
     private lateinit var myVM: LeprechaunVM
-    private val TAG = "myVM"
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,27 +26,21 @@ class LoadingFragment : Fragment(R.layout.laoding_fragment) {
         val vmFactory = LeprechaunVMFactory(this@LoadingFragment.activity!!.application)
         myVM = ViewModelProvider(this, vmFactory)[LeprechaunVM::class.java]
 
-        Log.d(TAG, "Factory worked")
-
         if (!checker.isDeviceSecured(this@LoadingFragment.requireActivity())) {
 
-            Log.d(TAG, "check pass")
             lifecycleScope.launch(Dispatchers.IO) {
                 val dataStore = myVM.checkDataStoreValue(DATASTORE_KEY, context!!)
-                Log.d(TAG, "datastore checked")
+
                 if (dataStore == null) {
                     myVM.getDeepLink(this@LoadingFragment.requireActivity())
-                    Log.d(TAG, "deeplink started")
 
                     lifecycleScope.launch(Dispatchers.Main) {
                         myVM.urlLiveData.observe(viewLifecycleOwner) {
-                            Log.d(TAG, "started WV")
                             startWebView(it)
                         }
                     }
                 } else {
                     lifecycleScope.launch(Dispatchers.Main) {
-                        Log.d(TAG, "started WV with saved url")
                         startWebView(dataStore.toString())
                     }
                 }

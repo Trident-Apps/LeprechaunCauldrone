@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "493624044066",
+    "project_id": "leprechaun-86578",
+    "storage_bucket": "leprechaun-86578.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493624044066:android:abd5b6bb60c4a7e80ef87b",
+        "android_client_info": {
+          "package_name": "br.gov.meugovb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493624044066-s1los1uvrhm198ehkrk5q9u77pg3jan4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1XU7UQT5Y-tFvFBL-WyftHtG2T9RJa1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493624044066-s1los1uvrhm198ehkrk5q9u77pg3jan4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

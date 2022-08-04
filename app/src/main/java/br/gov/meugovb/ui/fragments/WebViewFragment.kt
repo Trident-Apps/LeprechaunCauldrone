@@ -1,5 +1,6 @@
 package br.gov.meugovb.ui.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -60,15 +61,8 @@ class WebViewFragment : Fragment() {
                 fileChooserParams: FileChooserParams?
             ): Boolean {
                 messageAb = filePathCallback
-                val intent = Intent(Intent.ACTION_GET_CONTENT)
-                intent.addCategory(Intent.CATEGORY_OPENABLE)
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                intent.type = INTENT_TYPE
-                startActivityForResult(
-                    Intent.createChooser(intent, CHOOSER_TITLE), RESULT_CODE
-                )
-
-                return super.onShowFileChooser(webView, filePathCallback, fileChooserParams)
+                selectImageIfNeed()
+                return true
             }
 
             override fun onCreateWindow(
@@ -92,6 +86,24 @@ class WebViewFragment : Fragment() {
         return binding.root
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_CANCELED) {
+            messageAb?.onReceiveValue(null)
+            return
+        } else if (resultCode == Activity.RESULT_OK) {
+            if (messageAb == null) return
+
+            messageAb!!.onReceiveValue(
+                WebChromeClient.FileChooserParams.parseResult(
+                    resultCode,
+                    data
+                )
+            )
+            messageAb = null
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -107,15 +119,15 @@ class WebViewFragment : Fragment() {
             })
     }
 
-//    private fun selectImageIfNeed() {
-//        val i = Intent(Intent.ACTION_GET_CONTENT)
-//        i.addCategory(Intent.CATEGORY_OPENABLE)
-//        i.type = INTENT_TYPE
-//        startActivityForResult(
-//            Intent.createChooser(i, CHOOSER_TITLE),
-//            RESULT_CODE
-//        )
-//    }
+    private fun selectImageIfNeed() {
+        val i = Intent(Intent.ACTION_GET_CONTENT)
+        i.addCategory(Intent.CATEGORY_OPENABLE)
+        i.type = INTENT_TYPE
+        startActivityForResult(
+            Intent.createChooser(i, CHOOSER_TITLE),
+            RESULT_CODE
+        )
+    }
 
     private inner class LocalClient : WebViewClient() {
         override fun onReceivedError(
